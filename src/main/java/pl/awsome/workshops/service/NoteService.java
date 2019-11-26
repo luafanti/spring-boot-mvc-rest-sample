@@ -7,14 +7,14 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.awsome.workshops.controller.model.NoteDTO;
-import pl.awsome.workshops.repository.NoteRepository;
+import pl.awsome.workshops.repository.NotePostgresRepository;
 import pl.awsome.workshops.service.model.Note;
 
 @Service
 public class NoteService {
 
     @Autowired
-    private NoteRepository noteRepository;
+    private NotePostgresRepository noteRepository;
 
     public void saveNote(NoteDTO noteDTO) {
         Note note = new Note();
@@ -22,15 +22,18 @@ public class NoteService {
         note.setMessage(noteDTO.getMessage());
         note.setId(UUID.randomUUID().toString());
         note.setCreateDate(LocalDateTime.now());
-        noteRepository.saveNote(note);
+        noteRepository.save(note);
     }
 
     public void deleteNote(String noteId) {
-        noteRepository.deleteNote(noteId);
+        noteRepository.deleteById(noteId);
     }
 
    public List<Note> getAllNotes() {
-       return new ArrayList<>(noteRepository.getNotes());
+       List<Note> result = new ArrayList<>();
+       noteRepository.findAll()
+           .forEach(result::add);
+       return result;
    }
 
 }

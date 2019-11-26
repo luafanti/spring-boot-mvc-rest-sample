@@ -21,4 +21,5 @@ public class NoteRepository {
     public Collection<Note> getNotes() {
         return repo.values();
     }
+
 }
