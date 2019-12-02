@@ -1,0 +1,39 @@
+server:
+  port: 8090
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username=: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ###
+            client-secret: ###
+            scope: openid, email, profile, https://www.googleapis.com/auth/calendar, https://www.googleapis.com/auth/gmail.readonly
+          facebook:
+            client-id: ###
+            client-secret: ###
+            scope: user_posts
+          cognito:
+            client-id: ###
+            client-secret: ###
+            scope: openid
+        provider:
+          cognito:
+            issuerUri: ###
+            usernameAttribute: cognito:username
+
+
+
+
+
+
+
+
+
